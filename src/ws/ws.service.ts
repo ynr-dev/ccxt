@@ -43,6 +43,7 @@ export class WsService {
 
       } catch (e) {
         console.log (e)
+        return;
       }
     }
   }
