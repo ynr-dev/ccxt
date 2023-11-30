@@ -34,11 +34,13 @@ export class WsService {
 
         return;
       });
+
       try {
-        const candles = await exchange.watchOHLCV(symbol, timeframe,)
+        const candles = await exchange.watchOHLCV(symbol.toLocaleUpperCase(), timeframe,)
+        const ticker = symbol.toLocaleLowerCase();
         if(status){
           const [kline] = candles;
-          client.send(JSON.stringify({exchangeId, symbol, timeframe, kline }));
+          client.send(JSON.stringify({exchangeId, ticker, timeframe, kline }));
         }
 
       } catch (e) {
