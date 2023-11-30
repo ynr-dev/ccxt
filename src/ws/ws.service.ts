@@ -35,10 +35,9 @@ export class WsService {
       });
       try {
         const candles = await exchange.watchOHLCV(symbol, timeframe,)
-
         if(status){
-          console.log (new Date (), candles)
-          client.send(JSON.stringify(candles));
+          const [kline] = candles;
+          client.send(JSON.stringify({exchangeId, symbol, timeframe, kline }));
         }
 
       } catch (e) {
