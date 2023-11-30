@@ -32,6 +32,7 @@ export class WsService {
       client.on('close', function close() {
         console.log("connection closed")
         status = false;
+        break;
       });
       try {
         const candles = await exchange.watchOHLCV(symbol, timeframe,)
