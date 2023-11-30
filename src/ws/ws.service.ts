@@ -31,16 +31,18 @@ export class WsService {
     while (status) {
       client.on('close', function close() {
         console.log("connection closed")
-
-        return;
+        status = false
       });
 
+      console.log(client.disconnected);
       try {
         const candles = await exchange.watchOHLCV(symbol.toLocaleUpperCase(), timeframe,)
         const ticker = symbol.toLocaleLowerCase();
         if(status){
           const [kline] = candles;
           client.send(JSON.stringify({exchangeId, ticker, timeframe, kline }));
+        }else{
+          return;
         }
 
       } catch (e) {
