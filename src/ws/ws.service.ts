@@ -55,7 +55,13 @@ export class WsService {
   async fetchTickers(exchangeId: string, symbols: string): Promise<any> {
     const exchange = this.createExchangeInstance(exchangeId);
     const strArr = symbols.split(',');
-    return await exchange.fetchTickers(strArr)
+    if(symbols != 'all'){
+
+      return await exchange.fetchTickers(strArr)
+
+    }else{
+      return await exchange.fetchTickers()
+    }
   }
 
   async fetchOHLCV(exchangeId: string, symbol: string, timeframe: string, since: number): Promise<any> {
