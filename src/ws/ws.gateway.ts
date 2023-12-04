@@ -16,6 +16,9 @@ export class WsGateway {
 
     @SubscribeMessage('kline')
     onEvent(client: Socket, data: { exchangeId: string, symbol: string, timeframe: string, since: number }): void {
+        if("huobi" === data.exchangeId){
+            data.exchangeId = "htx";
+        }
 
         this.wsService.watchOHLCV(data.exchangeId, data.symbol, data.timeframe,  client);
 

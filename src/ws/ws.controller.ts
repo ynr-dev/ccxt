@@ -13,6 +13,10 @@ export class WsController {
         @Param('timeframe') timeframe: string,
         @Param('since') since: number,
     ): Promise<any> {
+        if("huobi" === exchangeId){
+            exchangeId = "htx";
+        }
+
         return await this.wsService.fetchOHLCV(exchangeId, symbol, timeframe, since);
     }
 
@@ -21,6 +25,10 @@ export class WsController {
         @Param('exchangeId') exchangeId: string,
         @Param('symbols') symbols: string,
     ): Promise<any> {
+        if("huobi" === exchangeId){
+            exchangeId = "htx";
+        }
+
         return await this.wsService.fetchTickers(exchangeId, symbols);
     }
 
@@ -28,6 +36,10 @@ export class WsController {
     async fetchTimeframes(
         @Param('exchangeId') exchangeId: string,
     ): Promise<any> {
+        if("huobi" === exchangeId){
+            exchangeId = "htx";
+        }
+
         return await this.wsService.fetchTimeframes(exchangeId);
     }
 }
