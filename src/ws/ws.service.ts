@@ -64,6 +64,11 @@ export class WsService {
     }
   }
 
+  async fetchTimeframes(exchangeId: string): Promise<any> {
+    const exchange = this.createExchangeInstance(exchangeId);
+    return Object.keys(exchange.timeframes)
+  }
+
   async fetchOHLCV(exchangeId: string, symbol: string, timeframe: string, since: number): Promise<any> {
     const exchange = this.createExchangeInstance(exchangeId);
 

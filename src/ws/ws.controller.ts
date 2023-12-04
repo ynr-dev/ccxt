@@ -23,4 +23,11 @@ export class WsController {
     ): Promise<any> {
         return await this.wsService.fetchTickers(exchangeId, symbols);
     }
+
+    @Get(':exchangeId/timeframes')
+    async fetchTimeframes(
+        @Param('exchangeId') exchangeId: string,
+    ): Promise<any> {
+        return await this.wsService.fetchTimeframes(exchangeId);
+    }
 }
