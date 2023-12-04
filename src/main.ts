@@ -10,8 +10,14 @@ async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
+
   );
-  app.enableCors();
+  app.enableCors(
+      {
+        origin : "*"
+      }
+
+  );
   app.useWebSocketAdapter(new WsAdapter(app));
   await app.listen(3000);
 }
