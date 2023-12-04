@@ -11,7 +11,7 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter(),
   );
-
+  app.enableCors();
   app.useWebSocketAdapter(new WsAdapter(app));
   await app.listen(3000);
 }
