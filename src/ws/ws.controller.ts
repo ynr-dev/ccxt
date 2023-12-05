@@ -6,7 +6,7 @@ import {OHLCV} from "ccxt";
 export class WsController {
     constructor(private readonly wsService: WsService) {}
 
-    @Get('/fetchOHLCV/:exchangeId/:symbol/:timeframe/:since')
+    @Get(':exchangeId/:symbol/fetchOHLCV/:timeframe/:since')
     async fetchOHLCV(
         @Param('exchangeId') exchangeId: string,
         @Param('symbol') symbol: string,
