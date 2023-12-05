@@ -14,7 +14,9 @@ async function bootstrap() {
 
     );
     const corsOptions: CorsOptions = {
-        origin: '*', // 프론트엔드 앱의 도메인을 지정
+        origin: 'http://localhost:3000', // 허용할 도메인을 여기에 설정
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        credentials: true,
     };
     app.enableCors(corsOptions);
     app.useWebSocketAdapter(new WsAdapter(app));
