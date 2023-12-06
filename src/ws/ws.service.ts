@@ -35,7 +35,7 @@ export class WsService {
       });
 
       try {
-        const candles = await exchange.watchOHLCV(symbol.toLocaleUpperCase(), timeframe,)
+        const candles = await exchange.watchOHLCV(this.getCoin(symbol), timeframe,)
         const ticker = symbol.toLocaleLowerCase();
         if(status){
           const [kline] = candles;
@@ -53,6 +53,7 @@ export class WsService {
 
   async fetchTickers(exchangeId: string, symbols: string): Promise<any> {
     const exchange = this.createExchangeInstance(exchangeId);
+    symbols = this.getCoin(symbols)
     const strArr = symbols.split(',');
     if(symbols != 'all'){
 
@@ -72,9 +73,13 @@ export class WsService {
     const exchange = this.createExchangeInstance(exchangeId);
 
     try {
-      return await exchange.fetchOHLCV(symbol, timeframe, since, 1000);
+      return await exchange.fetchOHLCV(this.getCoin(symbol), timeframe, since, 1000);
     }catch (e) {
       return [];
     }
+  }
+
+  getCoin(coin: String): string{
+    return coin.toLocaleUpperCase().replace("_", "/")
   }
 }
