@@ -8,8 +8,13 @@ import {
 } from '@nestjs/websockets';
 import { WsService } from './ws.service';
 import {Socket} from "socket.io";
+import {UseGuards} from "@nestjs/common";
 
-@WebSocketGateway()
+@WebSocketGateway({
+    origin: 'http://localhost:3000', // 허용할 도메인을 여기에 설정
+    credentials: true,
+
+})
 export class WsGateway {
 
     constructor(private readonly wsService: WsService) {}
