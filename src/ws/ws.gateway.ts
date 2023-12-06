@@ -1,14 +1,11 @@
 import {
-    ConnectedSocket,
-    MessageBody,
     SubscribeMessage,
     WebSocketGateway,
-    WebSocketServer,
+
 
 } from '@nestjs/websockets';
 import { WsService } from './ws.service';
-import {Socket} from "socket.io";
-import {UseGuards} from "@nestjs/common";
+import {WebSocket} from "ws";
 
 @WebSocketGateway({
     cors: {
@@ -20,7 +17,7 @@ export class WsGateway {
     constructor(private readonly wsService: WsService) {}
 
     @SubscribeMessage('kline')
-    onEvent(client: Socket, data: { exchangeId: string, symbol: string, timeframe: string, since: number }): void {
+    onEvent(client: WebSocket, data: { exchangeId: string, symbol: string, timeframe: string, since: number }): void {
         if("huobi" === data.exchangeId){
             data.exchangeId = "htx";
         }

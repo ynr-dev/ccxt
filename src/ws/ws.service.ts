@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as ccxt from 'ccxt';
-import {Socket} from "socket.io";
+import {WebSocket} from "ws";
 
 @Injectable()
 export class WsService {
@@ -21,7 +21,7 @@ export class WsService {
     return new exchangeClass();
   }
 
-  async watchOHLCV(exchangeId: string, symbol: string, timeframe: string, client: Socket): Promise<any> {
+  async watchOHLCV(exchangeId: string, symbol: string, timeframe: string, client: WebSocket): Promise<any> {
     const exchange = this.createExchangeProInstance(exchangeId);
 
 
@@ -34,7 +34,6 @@ export class WsService {
         status = false
       });
 
-      console.log(client.disconnected);
       try {
         const candles = await exchange.watchOHLCV(symbol.toLocaleUpperCase(), timeframe,)
         const ticker = symbol.toLocaleLowerCase();
