@@ -55,13 +55,30 @@ export class WsService {
     const exchange = this.createExchangeInstance(exchangeId);
     symbols = this.getCoin(symbols)
     const strArr = symbols.split(',');
-    if(symbols != 'all'){
+    let data
 
-      return await exchange.fetchTickers(strArr)
+    if(symbols != 'ALL'){
+
+      data =  await exchange.fetchTickers(strArr)
 
     }else{
-      return await exchange.fetchTickers()
+      data =  await exchange.fetchTickers()
     }
+
+    const arrData = Object.entries(data);
+    const filteredArrData = arrData.filter(
+        (item:object) =>
+            item[1].symbol.split("/")[1] === "KRW" ||
+            item[1].symbol.split("/")[1] === "USDT"
+    );
+    const result = filteredArrData.map((item:object) => ({
+      symbol: item[1].symbol,
+      price: item[1].close,
+      changeRate: item[1].percentage,
+      volume: item[1].quoteVolume,
+    }));
+    result.sort((a, b) => b.price - a.price);
+    return result
   }
 
   async fetchTimeframes(exchangeId: string): Promise<any> {
