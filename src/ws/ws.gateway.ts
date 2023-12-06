@@ -11,9 +11,9 @@ import {Socket} from "socket.io";
 import {UseGuards} from "@nestjs/common";
 
 @WebSocketGateway({
-    origin: 'http://localhost:3000', // 허용할 도메인을 여기에 설정
-    credentials: true,
-
+    cors: {
+        origin: 'http://localhost:3000', // 허용할 도메인을 여기에 설정
+    }
 })
 export class WsGateway {
 
