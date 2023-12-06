@@ -9,7 +9,7 @@ import {WebSocket} from "ws";
 
 @WebSocketGateway({
     cors: {
-        origin: 'http://localhost:3000', // 허용할 도메인을 여기에 설정
+        origin: '*', // 허용할 도메인을 여기에 설정
     }
 })
 export class WsGateway {

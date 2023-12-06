@@ -14,7 +14,7 @@ async function bootstrap() {
 
     );
     const corsOptions: CorsOptions = {
-        origin: 'http://localhost:3000', // 허용할 도메인을 여기에 설정
+        origin: '*', // 허용할 도메인을 여기에 설정
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         credentials: true,
     };
