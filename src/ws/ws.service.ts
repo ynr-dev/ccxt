@@ -81,9 +81,20 @@ export class WsService {
     return result
   }
 
-  async fetchTimeframes(exchangeId: string): Promise<any> {
+  async fetchTimeframes(exchangeId: string, symbol: string): Promise<any> {
+
     const exchange = this.createExchangeInstance(exchangeId);
-    return Object.keys(exchange.timeframes)
+    const ticker = await exchange.fetchTicker(this.getCoin(symbol));
+    const price:string = ticker.low.toString();
+
+    let scale;
+    if(price.indexOf(".") != -1){
+
+      scale = price.split(".")[1].length
+    }else{
+      scale = 0
+    }
+    return {scale, timeframes:Object.keys(exchange.timeframes)}
   }
 
   async fetchOHLCV(exchangeId: string, symbol: string, timeframe: string, since: number): Promise<any> {

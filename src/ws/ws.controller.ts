@@ -32,14 +32,15 @@ export class WsController {
         return await this.wsService.fetchTickers(exchangeId, symbols);
     }
 
-    @Get(':exchangeId/timeframes')
+    @Get(':exchangeId/:symbol/timeframes')
     async fetchTimeframes(
         @Param('exchangeId') exchangeId: string,
+        @Param('symbol') symbol: string,
     ): Promise<any> {
         if("huobi" === exchangeId){
             exchangeId = "htx";
         }
 
-        return await this.wsService.fetchTimeframes(exchangeId);
+        return await this.wsService.fetchTimeframes(exchangeId, symbol);
     }
 }
