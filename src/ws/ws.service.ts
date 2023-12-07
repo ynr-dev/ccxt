@@ -77,7 +77,7 @@ export class WsService {
       changeRate: item[1].percentage,
       volume: item[1].quoteVolume,
     }));
-    result.sort((a, b) => b.price - a.price);
+    result.sort((a, b) => b.volume - a.volume);
     return result
   }
 
