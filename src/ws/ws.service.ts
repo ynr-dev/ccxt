@@ -39,8 +39,8 @@ export class WsService {
         const ticker = symbol.toLocaleLowerCase();
 
         let exchange = exchangeId
-        if("huobi" === exchangeId){
-          exchange = "htx";
+        if("htx" === exchangeId){
+          exchange = "huobi";
         }
         if(status){
           const [kline] = candles;
