@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import * as ccxt from 'ccxt';
 import {WebSocket} from "ws";
+import {GateioService} from "./ws.gateio";
+
 
 @Injectable()
 export class WsService {
+
+  constructor(private readonly gateioService: GateioService) {}
 
   createExchangeProInstance(exchangeId: string) {
     const exchangeClass = ccxt.pro[exchangeId];
@@ -22,12 +26,24 @@ export class WsService {
   }
 
   async watchOHLCV(exchangeId: string, symbol: string, timeframe: string, client: WebSocket): Promise<any> {
+    switch (exchangeId){
+      case "gateio":
+        await this.gateioService.wsOHLCV(timeframe, symbol, client)
+        break
+      default:
+        this.getNormalOHLCV(exchangeId, symbol, timeframe, client)
+    }
+
+
+
+
+
+  }
+
+  async getNormalOHLCV(exchangeId: string, symbol: string, timeframe: string, client: WebSocket){
     const exchangeIns = this.createExchangeProInstance(exchangeId);
 
-
     let status: boolean = true;
-
-
     while (status) {
       client.on('close', function close() {
         console.log("connection closed")
