@@ -22,7 +22,7 @@ export class WsService {
   }
 
   async watchOHLCV(exchangeId: string, symbol: string, timeframe: string, client: WebSocket): Promise<any> {
-    const exchange = this.createExchangeProInstance(exchangeId);
+    const exchangeIns = this.createExchangeProInstance(exchangeId);
 
 
     let status: boolean = true;
@@ -35,11 +35,16 @@ export class WsService {
       });
 
       try {
-        const candles = await exchange.watchOHLCV(this.getCoin(symbol), timeframe,)
+        const candles = await exchangeIns.watchOHLCV(this.getCoin(symbol), timeframe,)
         const ticker = symbol.toLocaleLowerCase();
+
+        let exchange = exchangeId
+        if("huobi" === exchangeId){
+          exchange = "htx";
+        }
         if(status){
           const [kline] = candles;
-          client.send(JSON.stringify({exchangeId, ticker, timeframe, kline }));
+          client.send(JSON.stringify({exchange, ticker, timeframe, kline }));
         }else{
           return;
         }
