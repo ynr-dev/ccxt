@@ -31,7 +31,6 @@ export class GateioService {
 
 
             }
-            console.log(exchange)
         }
 
         client.on('close', function close() {
