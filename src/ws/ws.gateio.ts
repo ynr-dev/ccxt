@@ -22,10 +22,21 @@ export class GateioService {
             const exchange = "gateio"
             const ticker = symbol
             if (typeof message.data === "string") {
-                const kline = [JSON.parse(message.data)]
-                client.send(JSON.stringify({exchange, ticker, timeframe, kline }));
-            }
+                const result = JSON.parse(message.data).result
+                if(result.t != null){
 
+                    const kline = [result.t, result.o, result.h, result.l, result.c, result.v]
+                    client.send(JSON.stringify({exchange, ticker, timeframe, kline }));
+                }
+
+
+            }
+            console.log(exchange)
         }
+
+        client.on('close', function close() {
+           ws.close();
+        });
+
     }
 }
