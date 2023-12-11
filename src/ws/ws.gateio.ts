@@ -25,7 +25,7 @@ export class GateioService {
                 const result = JSON.parse(message.data).result
                 if(result.t != null){
 
-                    const kline = [result.t, result.o, result.h, result.l, result.c, result.v]
+                    const kline = [(result.t)*1000, result.o, result.h, result.l, result.c, result.v]
                     client.send(JSON.stringify({exchange, ticker, timeframe, kline }));
                 }
 
