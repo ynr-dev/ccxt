@@ -106,15 +106,29 @@ export class WsService {
 
     const exchange = this.createExchangeInstance(exchangeId);
     const ticker = await exchange.fetchTicker(this.getCoin(symbol));
-    const price:string = ticker.low.toString();
-
-    let scale;
-    if(price.indexOf(".") != -1){
-
-      scale = price.split(".")[1].length
-    }else{
-      scale = 0
+    const ohlcArr = [
+    ticker.open?.toString(),
+    ticker.high?.toString(),
+    ticker.low?.toString(),
+    ticker.close?.toString(),
+  ]
+      const scaleArr = ohlcArr.map((numString) => {
+    if (numString && numString.indexOf(".") !== -1) {
+      return numString.split(".")[1].length;
+    } else {
+      return 0;
     }
+  });
+  const scale = Math.max.apply(null, scaleArr);
+    // const price:string = ticker.low.toString();
+
+    // let scale;
+    // if(price.indexOf(".") != -1){
+
+      // scale = price.split(".")[1].length
+    // }else{
+      // scale = 0
+    // }
     return {scale, timeframes:Object.keys(exchange.timeframes)}
   }
 
