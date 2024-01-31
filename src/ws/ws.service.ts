@@ -2,12 +2,18 @@ import { Injectable } from '@nestjs/common';
 import * as ccxt from 'ccxt';
 import {WebSocket} from "ws";
 import {GateioService} from "./ws.gateio";
+import {GopaxService} from "./ws.gopax";
+import {number} from "ccxt/js/src/static_dependencies/noble-hashes/_assert";
 
 
 @Injectable()
 export class WsService {
 
-  constructor(private readonly gateioService: GateioService) {}
+  constructor(
+
+      private readonly gateioService: GateioService,
+      private readonly gopaxService: GopaxService
+  ) {}
 
   createExchangeProInstance(exchangeId: string) {
     const exchangeClass = ccxt.pro[exchangeId];
@@ -73,6 +79,11 @@ export class WsService {
   }
 
   async fetchTickers(exchangeId: string, symbols: string): Promise<any> {
+    if (exchangeId = "gopax"){
+      return this.gopaxService.fetchTickers(symbols);
+    }
+
+
     const exchange = this.createExchangeInstance(exchangeId);
     symbols = this.getCoin(symbols)
     const strArr = symbols.split(',');
@@ -103,7 +114,9 @@ export class WsService {
   }
 
   async fetchTimeframes(exchangeId: string, symbol: string): Promise<any> {
-
+    if(exchangeId == "gopax"){
+      return this.gopaxService.fetchTimeframes(exchangeId, symbol)
+    }
     const exchange = this.createExchangeInstance(exchangeId);
     const ticker = await exchange.fetchTicker(this.getCoin(symbol));
     const ohlcArr = [
@@ -133,6 +146,11 @@ export class WsService {
   }
 
   async fetchOHLCV(exchangeId: string, symbol: string, timeframe: string, since: number): Promise<any> {
+    if(exchangeId == "gopax"){
+      return this.gopaxService.fetchOHLCV(symbol, timeframe, since);
+    }
+
+
     const exchange = this.createExchangeInstance(exchangeId);
 
     try {
