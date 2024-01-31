@@ -79,7 +79,7 @@ export class WsService {
   }
 
   async fetchTickers(exchangeId: string, symbols: string): Promise<any> {
-    if (exchangeId = "gopax"){
+    if (exchangeId == "gopax"){
       return this.gopaxService.fetchTickers(symbols);
     }
 
