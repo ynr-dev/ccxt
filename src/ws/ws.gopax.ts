@@ -390,7 +390,7 @@ export class GopaxService {
     }
 
     findMinInSecondColumn(arr: number[][], n : number): number {
-        let min = Number.NEGATIVE_INFINITY;
+        let min = Number.POSITIVE_INFINITY;
 
         for (let i = 0; i < arr.length; i++) {
             if (arr[i][n] < min) {
