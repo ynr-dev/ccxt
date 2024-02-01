@@ -66,7 +66,7 @@ export class GopaxService {
     }
 
     async wsOHLCV(timeframe:string, symbol:string, client:WebSocket){
-        const tradingPairName = symbol.replace("_", "-").toLocaleUpperCase()
+        const tradingPairName = symbol.replace("/", "-").toLocaleUpperCase()
         const ws = new WebSocket("wss://wsapi.gopax.co.kr");
 
         let time: number;
