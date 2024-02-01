@@ -36,6 +36,9 @@ export class WsService {
       case "gateio":
         await this.gateioService.wsOHLCV(timeframe, symbol, client)
         break
+      case "gopax":
+        await this.gopaxService.wsOHLCV(timeframe, symbol, client)
+        break
       default:
         this.getNormalOHLCV(exchangeId, symbol, timeframe, client)
     }
@@ -147,7 +150,9 @@ export class WsService {
 
   async fetchOHLCV(exchangeId: string, symbol: string, timeframe: string, since: number): Promise<any> {
     if(exchangeId == "gopax"){
-      return this.gopaxService.fetchOHLCV(symbol, timeframe, since);
+
+      const interval = this.gopaxService.getInterval(timeframe);
+      return this.gopaxService.fetchOHLCV(symbol, timeframe, since, since-1000*60*interval);
     }
 
 
