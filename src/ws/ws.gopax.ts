@@ -254,7 +254,7 @@ export class GopaxService {
                             }else{
                                 open = open == 0 ? result.price : open
                                 high = high == 0 || high < result.price ? result.price : high
-                                low = low == 0 || low > result.price ? result.price : high
+                                low = low == 0 || low > result.price ? result.price : low
                                 volume += result.baseAmount
                             }
 
@@ -278,7 +278,7 @@ export class GopaxService {
                             }else{
                                 open = open == 0 ? result.price : open
                                 high = high == 0 || high < result.price ? result.price : high
-                                low = low == 0 || low > result.price ? result.price : high
+                                low = low == 0 || low > result.price ? result.price : low
                                 volume += result.baseAmount
                             }
                             break
@@ -303,7 +303,7 @@ export class GopaxService {
                             }else{
                                 open = open == 0 ? result.price : open
                                 high = high == 0 || high < result.price ? result.price : high
-                                low = low == 0 || low > result.price ? result.price : high
+                                low = low == 0 || low > result.price ? result.price : low
                                 volume += result.baseAmount
                             }
                             break
@@ -324,7 +324,7 @@ export class GopaxService {
                             }else{
                                 open = open == 0 ? result.price : open
                                 high = high == 0 || high < result.price ? result.price : high
-                                low = low == 0 || low > result.price ? result.price : high
+                                low = low == 0 || low > result.price ? result.price : low
                                 volume += result.baseAmount
                             }
                             break
@@ -339,7 +339,7 @@ export class GopaxService {
                             }else{
                                 open = open == 0 ? result.price : open
                                 high = high == 0 || high < result.price ? result.price : high
-                                low = low == 0 || low > result.price ? result.price : high
+                                low = low == 0 || low > result.price ? result.price : low
                                 volume += result.baseAmount
                             }
                             break
@@ -354,7 +354,7 @@ export class GopaxService {
                             }else{
                                 open = open == 0 ? result.price : open
                                 high = high == 0 || high < result.price ? result.price : high
-                                low = low == 0 || low > result.price ? result.price : high
+                                low = low == 0 || low > result.price ? result.price : low
                                 volume += result.baseAmount
                             }
                             break
